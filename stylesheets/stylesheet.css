@@ -1,0 +1,86 @@
+/* Stylesheet for index.html */
+
+/*
+Colors
+#252f3d
+#374455
+#e5d6b0
+#ff816b
+*/
+
+body {
+  background-color: #252f3d;
+  color: white;
+  width: 100%;
+  height: 100%;
+  font-family: Avenir, sans-serif;
+  border-top: solid 4px #e5d6b0;
+  overflow: hidden;
+}
+
+#taskInputContainer {
+  width: 30%;
+  left: 35%;
+  top: 10%;
+  position: absolute;
+}
+
+#taskContainer {
+  width: 40%;
+  height: 60%;
+  left: 30%;
+  top: 25%;
+  position: absolute;
+  overflow: auto;
+}
+
+.card {
+  background-color: #374455;
+  width: 96%;
+  font-size: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1%;
+  display: flex;
+  flex-direction: row;
+}
+
+.card-body {
+  width: 90%;
+  display: inline-block;
+  float: left;
+}
+
+.trashContainer.btn.btn-primary.btn-raised {
+  background-color: hsla(0, 0%, 60%, 0.1);
+  color: #ff816b;
+  width: 10%;
+  font-size: 1.25rem;
+  border-radius: 0px 0.5em 0.5em 0px;
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.animated.fadeInUp {
+  animation-duration: 0.5s;
+}
+
+.svg-inline--fa.fa-trash-alt {
+  width: 1.75rem;
+  height: 3rem;
+  padding: 0.2rem;
+  display: block;
+  margin: auto;
+}
+
+.svg-inline--fa.fa-trash-alt > .trash-rotate {
+  transition: transform 0.2s ease;
+}
+
+.trashContainer.btn.btn-primary.btn-raised:hover > .svg-inline--fa.fa-trash-alt > .trash-rotate {
+  transform: rotate(-20deg);
+  transform-origin: -100px 180px;
+}
