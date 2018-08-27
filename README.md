@@ -1,6 +1,6 @@
 # To Do List - Google Chrome Extension
 
-** A simple To Do List as a Google Chrome Extension **
+**A simple To Do List as a Google Chrome Extension**
 
 ### Description
 
@@ -15,7 +15,7 @@ The project is not in the Chrome Web Store since it's relatively simple (I reall
 
 Actually using the project is pretty simple, just open a new tab and there will be an input field to enter tasks.
 
-** Due Dates **
+**Due Dates**
 
 Tasks by default will be due that day, so the progress bar underneath will be one color and it'll say "0 days left". If you would like to add a due date, simply include the date in your task between `*`.
 
