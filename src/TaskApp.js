@@ -3,12 +3,6 @@
 import TaskList from "./TaskList.js";
 
 //===================================
-// Helper Functions
-//===================================
-
-
-
-//===================================
 // TaskApp React Component
 //===================================
 
@@ -22,12 +16,15 @@ export default class TaskApp extends React.Component {
       tasks: this.props.initList.map((e, i) => ({
         key: "t" + i,
         id: "t" + i,
-        text: e
+        text: e.text,
+        created: e.created,
+        due: e.due
       })),
-      taskCount: (1 || this.props.initList.length) - 1,
+      taskCount: (this.props.initList.length || 1) - 1,
       tempList: null
     };
 
+    //create React Reference to input field for later use
     this.inputRef = React.createRef();
 
     //bind handlers to object
@@ -36,7 +33,9 @@ export default class TaskApp extends React.Component {
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
   }
 
+  //input change handler
   handleChange(e) {
+    //create a temporary list of tasks that match the searched phrase
     let value = e.target.value;
     this.setState((prevState, props) => ({
       tempList: prevState.tasks.filter(e => e.text.includes(value))
@@ -48,12 +47,34 @@ export default class TaskApp extends React.Component {
     //if the trimmed input exists and the user hit "enter"
     let value = e.target.value.trim();
     if (value && e.key === "Enter") {
+      //create Dates for when task is created (today) and due (date)
+      let today = new Date();
+      let date = new Date(today.getUTCFullYear(), today.getMonth(), today.getDate());
+
+      //when the task contains *, there's a date
+      if (value.includes("*")) {
+        //get the month/day the m/d format
+        let time = value.substring(value.indexOf("*") + 1, value.lastIndexOf("*"));
+
+        if (time.includes("/")) {
+          let month = parseInt(time.split("/")[0]) - 1;
+          let day = parseInt(time.split("/")[1]);
+          //set the date to the new month/day (same year)
+          date = new Date(today.getUTCFullYear(), month, day);
+        }
+
+        //cut the input down to just the task (not including due date)
+        value = value.substring(0, value.indexOf("*")).trim();
+      }
+
       //set state to the updated list
       this.setState((prevState, props) => {
         let task = {
           key: "t" + (prevState.taskCount + 1),
           id: "t" + (prevState.taskCount + 1),
-          text: value
+          text: value,
+          created: today.getTime(),
+          due: date.getTime()
         };
         let list = prevState.tasks.concat([task]);
 
@@ -81,8 +102,13 @@ export default class TaskApp extends React.Component {
 
   //render method
   render() {
+    //store the updated task list in Chrome Storage
     chrome.storage.local.set({
-      todolist: this.state.tasks.map(e => e.text)
+      todolist: this.state.tasks.map(e => ({
+        text: e.text,
+        created: e.created,
+        due: e.due
+      }))
     });
     let list = this.state.tempList || this.state.tasks;
 

@@ -10664,7 +10664,7 @@ select, select.custom-file-control, select.form-control {
 .progress {
   height: 4px;
   background: #c8c8c8;
-  border-radius: 0
+  border-radius: 0px;
 }
 
 .progress, .progress .progress-bar {

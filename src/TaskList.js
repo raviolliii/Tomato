@@ -32,12 +32,14 @@ export default class TaskList extends React.Component {
   //render method
   render() {
     //for every object in the tasks array (passed in props)
-    //turn it into a Task Component, passing key, id, text, and click handler
+    //turn it into a Task Component, passing key, id, etc.
     let tasks = this.props.tasks.map(e => {
       return <Task
         key = {e.key}
         id = {e.id}
         text = {e.text}
+        created = {e.created}
+        due = {e.due}
         onDeleteClick = {this.handleDeleteClick}
       />
     });

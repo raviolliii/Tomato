@@ -45,13 +45,40 @@ body {
   flex-direction: row;
 }
 
+.expired {
+  border-left: solid #ff816b 3px;
+}
+
 .card-body {
   width: 90%;
   display: inline-block;
   float: left;
 }
 
-.trashContainer.btn.btn-primary.btn-raised {
+.card-footer {
+  background-color: #374455;
+  font-size: 0.8rem;
+  border-top: none;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  display: flex;
+}
+
+.days {
+  width: 20%;
+  height: 1.5em;
+  float: left;
+}
+
+.progress {
+  width: 80%;
+  background-color: hsla(0, 0%, 60%, 0.3);
+  border-radius: 0.5em;
+  margin-top: calc(0.75em - 2px);
+}
+
+.deleteButton.btn.btn-primary.btn-raised {
   background-color: hsla(0, 0%, 60%, 0.1);
   color: #ff816b;
   width: 10%;
@@ -62,10 +89,6 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
-
-.animated.fadeInUp {
-  animation-duration: 0.5s;
 }
 
 .svg-inline--fa.fa-trash-alt {
@@ -80,7 +103,11 @@ body {
   transition: transform 0.2s ease;
 }
 
-.trashContainer.btn.btn-primary.btn-raised:hover > .svg-inline--fa.fa-trash-alt > .trash-rotate {
+.deleteButton.btn.btn-primary.btn-raised:hover > .svg-inline--fa.fa-trash-alt > .trash-rotate {
   transform: rotate(-20deg);
   transform-origin: -100px 180px;
+}
+
+.animated.fadeInUp {
+  animation-duration: 0.5s;
 }

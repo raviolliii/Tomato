@@ -1,6 +1,7 @@
 //Task Component file
 
-import TrashIcon from "./TrashIcon.js";
+import DeleteButton from "./DeleteButton.js";
+import ProgressBar from "./ProgressBar.js";
 
 //===================================
 // Task React Component
@@ -17,6 +18,14 @@ export default class Task extends React.Component {
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
   }
 
+  //component did mount
+  componentDidMount() {
+    //if the due date has passed, add the expired class to the task's card
+    if (this.props.due <= Date.now()) {
+      this.card.current.classList.add("expired");
+    }
+  }
+
   //handle delete button click
   handleDeleteClick(e) {
     //references the card containing the button clicked and adds
@@ -28,13 +37,14 @@ export default class Task extends React.Component {
 
   //render method
   render() {
-    //returns card container with task text and delete button
+    //returns card container with task info and delete button
     return (
       <div className = "card animated fadeInUp delay-4s" ref = {this.card}>
         <div className = "card-body">
           <div className = "card-text"> {this.props.text} </div>
+          <ProgressBar created = {this.props.created} due = {this.props.due} />
         </div>
-        <TrashIcon onClick = {this.handleDeleteClick} />
+        <DeleteButton onClick = {this.handleDeleteClick} />
       </div>
     );
   }

@@ -1,17 +1,17 @@
-//Trash Icon Component file
+//Delete Button Component file
 
 //===================================
-// Trash Icon Component
+// Delete Button Component
 //===================================
 
-export default class TrashIcon extends React.Component {
+export default class DeleteButton extends React.Component {
   //render method
   render() {
-    //returns delete button container with trash icon svg
+    //returns delete button container with trash icon svg for animation
     return (
-      <div className = "trashContainer btn btn-primary btn-raised" onClick = {this.props.onClick}>
-        <svg aria-hidden="true" data-prefix="fas" data-icon="trash-alt" class="svg-inline--fa fa-trash-alt fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-          <path class = "trash-rotate" fill="currentColor"
+      <div className = "deleteButton btn btn-primary btn-raised" onClick = {this.props.onClick}>
+        <svg aria-hidden="true" data-prefix="fas" data-icon="trash-alt" className="svg-inline--fa fa-trash-alt fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+          <path className = "trash-rotate" fill="currentColor"
             d="M0 84V56c0-13.3 10.7-24 24-24h112l9.4-18.7c4-8.2 12.3-13.3
                 21.4-13.3h114.3c9.1 0 17.4 5.1 21.5 13.3L312 32h112c13.3 0
                 24 10.7 24 24v28c0 6.6-5.4 12-12 12H12C5.4 96 0 90.6 0 84zm416 16">
