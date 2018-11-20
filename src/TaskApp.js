@@ -3,6 +3,51 @@
 import TaskList from "./TaskList.js";
 
 //===================================
+// Helper Functions
+//===================================
+
+//parses a user input to find date and returns it
+function parseDateInput(input) {
+  let today = new Date();
+  let due = new Date(today.getUTCFullYear(), today.getMonth(), today.getDate());
+  let oneDay = 1000 * 60 * 60 * 24; //ms * seconds * minutes * hours
+
+  let keywords = {
+    date: function(phrase) {
+      let month = parseInt(phrase.split("/")[0]) - 1;
+      let day = parseInt(phrase.split("/")[1]);
+      return new Date(today.getUTCFullYear(), month, day);
+    },
+    days: function(count) {
+      due.setTime(due.getTime() + (count * oneDay));
+      return due;
+    },
+    weeks: function(count) {
+      due.setTime(due.getTime() + (count * 7 * oneDay));
+      return due;
+    },
+    months: function(count) {
+      due.setTime(due.getTime() + (count * 30 * oneDay));
+      return due;
+    }
+  };
+
+  if (input.includes("/")) {
+    return keywords.date(input);
+  }
+  else if (input.includes("day") || input.includes("week") || input.includes("month")) {
+    let count = input.split(" ")[0];
+    let term = input.split(" ")[1];
+    term += term[term.length - 1] !== "s" ? "s" : "";
+    return keywords[term](count);
+  }
+  else if (input.includes("tomorrow")) {
+    return keywords.days(1);
+  }
+  return due;
+}
+
+//===================================
 // TaskApp React Component
 //===================================
 
@@ -46,25 +91,20 @@ export default class TaskApp extends React.Component {
   handleKeyPress(e) {
     //if the trimmed input exists and the user hit "enter"
     let value = e.target.value.trim();
+
     if (value && e.key === "Enter") {
-      //create Dates for when task is created (today) and due (date)
+      //create Dates for when task is created (today) and due
       let today = new Date();
-      let date = new Date(today.getUTCFullYear(), today.getMonth(), today.getDate());
+      let due = new Date(today.getUTCFullYear(), today.getMonth(), today.getDate());
 
-      //when the task contains *, there's a date
-      if (value.includes("*")) {
+      //when the task contains @, there's a date
+      if (value.includes("@")) {
         //get the month/day the m/d format
-        let time = value.substring(value.indexOf("*") + 1, value.lastIndexOf("*"));
-
-        if (time.includes("/")) {
-          let month = parseInt(time.split("/")[0]) - 1;
-          let day = parseInt(time.split("/")[1]);
-          //set the date to the new month/day (same year)
-          date = new Date(today.getUTCFullYear(), month, day);
-        }
+        let input = value.substring(value.indexOf("@") + 1).trim().toLowerCase();
+        due = parseDateInput(input);
 
         //cut the input down to just the task (not including due date)
-        value = value.substring(0, value.indexOf("*")).trim();
+        value = value.substring(0, value.indexOf("@")).trim();
       }
 
       //set state to the updated list
@@ -74,7 +114,7 @@ export default class TaskApp extends React.Component {
           id: "t" + (prevState.taskCount + 1),
           text: value,
           created: today.getTime(),
-          due: date.getTime()
+          due: due.getTime()
         };
         let list = prevState.tasks.concat([task]);
 
@@ -123,6 +163,7 @@ export default class TaskApp extends React.Component {
                 onKeyPress = {this.handleKeyPress}
                 className="form-control" id="taskInput"
           />
+          <div id = "tip"> Tip: Type "@" to add a due date (ex. @tomorrow, @3 weeks) </div>
         </div>
         <TaskList tasks = {list} onDeleteClick = {this.handleDeleteClick}/>
       </div>

@@ -25,11 +25,17 @@ body {
   position: absolute;
 }
 
+#tip {
+  color: #afafaf;
+  font-size: 0.8em;
+  margin-top: 0.5em;
+}
+
 #taskContainer {
   width: 40%;
   height: 60%;
   left: 30%;
-  top: 25%;
+  top: 28%;
   position: absolute;
   overflow: auto;
 }
@@ -69,6 +75,7 @@ body {
   width: 20%;
   height: 1.5em;
   float: left;
+  overflow-x: auto;
 }
 
 .progress {
