@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
-  "name": "Custom New Tab",
-  "description": "Sets a custom New Tab Page",
+  "name": "Tomato",
+  "description": "Turns Google Chrome home page to a To Do List app",
   "version": "1.0.0",
   "chrome_url_overrides": {
     "newtab": "index.html"
