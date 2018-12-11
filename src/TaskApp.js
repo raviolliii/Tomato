@@ -56,7 +56,7 @@ export default class TaskApp extends React.Component {
   constructor(props) {
     super(props);
 
-    //initialize state with tasks from getCookie() or []
+    //initialize state with tasks from or []
     this.state = {
       tasks: this.props.initList.map((e, i) => ({
         key: "t" + i,
